@@ -1,0 +1,20 @@
+package edu;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
+
+public class MainController implements Initializable {
+
+
+
+    @Override public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    public void runProgram() {
+
+    }
+}

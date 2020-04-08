@@ -1,0 +1,56 @@
+program = global_variables, main, {function};
+
+global_variables = "GLOBALS",
+                        [declaration, {"," declaration} ";"]
+                   "END"
+
+main = "MAIN", code_block
+
+function = "FUNCTION", identifier, "(", [declaration {",", declaration}] ")", code_block
+
+function_call = identifier, "(", [identifier | expression | string, {",", identifier | expression | string}], ")", ";"
+
+code_control = if | for | while ;
+
+if = "if", white_space, condition, {"&&" | "||", condition}, code_block
+
+for = "for", white_space, "(", declaration (assigment), ";" condition, ";", identifier, "++" | "--", ")", code_block
+
+while = "while", white_space, "(", condition, {"&&" | "||", condition}, ")" , code_block ;
+
+read = "READ", white_space, identifier, ";"
+
+write = "WRITE", white_space, (identifier | string | expression), ";"
+
+code_block = "{", { declaration | assigment | code_control | function_call | function | read | write} , "}" ;
+
+condition = identifier (number) | expression, "<" | ">" | "==" | "<=" | ">=", identifier (number) | expression ;
+
+expression =  [ "+" | "-"], term, { ("+"|"-"), term};
+
+term = factor {("*" | "/" | "%") factor}.
+
+factor = number | identifier (number) | "(" expression ")".
+
+assigment = identifier , "=" ,  identifier | string | expression ;
+
+declaration = "string" | "number", white_space, identifier | assigment;
+
+identifier = letter, { letter | digit } ;
+
+string = '"', { letter | number  | white_space}, '"' | "'", { letter | number | white_space}, "'";
+
+number = digit, {digit} ;
+
+letter = "A" | "B" | "C" | "D" | "E" | "F" | "G"
+       | "H" | "I" | "J" | "K" | "L" | "M" | "N"
+       | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
+       | "V" | "W" | "X" | "Y" | "Z" | "a" | "b"
+       | "c" | "d" | "e" | "f" | "g" | "h" | "i"
+       | "j" | "k" | "l" | "m" | "n" | "o" | "p"
+       | "q" | "r" | "s" | "t" | "u" | "v" | "w"
+       | "x" | "y" | "z" ;
+
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
+
+white_space = ? white_spaces ? ;
