@@ -94,6 +94,8 @@ public class LexerHelper {
         separators.add(Grammar.COMMA);
         separators.add(Grammar.CURLY_BRACKET_LEFT);
         separators.add(Grammar.CURLY_BRACKET_RIGHT);
+        separators.add(Grammar.SQUARE_BRACKET_LEFT);
+        separators.add(Grammar.SQUARE_BRACKET_RIGHT);
         separators.add(Grammar.DOUBLE_QUOTE);
         separators.add(Grammar.SINGLE_QUOTE);
     }

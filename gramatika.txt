@@ -6,17 +6,17 @@ global_variables = "GLOBALS",
 
 main = "MAIN", code_block
 
-function = "FUNCTION", identifier, "(", [declaration {",", declaration}] ")", code_block
+function = "FUNCTION", identifier, "[", [declaration {",", declaration}] "]", code_block
 
-function_call = identifier, "(", [identifier | expression | string, {",", identifier | expression | string}], ")", ";"
+function_call = identifier, "[", [identifier | expression | string, {",", identifier | expression | string}], "]", ";"
 
 code_control = if | for | while ;
 
 if = "if", white_space, condition, {"&&" | "||", condition}, code_block
 
-for = "for", white_space, "(", declaration (assigment), ";" condition, ";", identifier, "++" | "--", ")", code_block
+for = "for", white_space, "[", declaration (assigment), ";" condition, ";", identifier, "++" | "--", "]", code_block
 
-while = "while", white_space, "(", condition, {"&&" | "||", condition}, ")" , code_block ;
+while = "while", white_space, "[", condition, {"&&" | "||", condition}, "]" , code_block ;
 
 read = "READ", white_space, identifier, ";"
 

@@ -12,6 +12,12 @@ public class Token {
         this.line = line;
     }
 
+    public Token(String value, TokenType type, int line) {
+        this.value = value;
+        this.type = type;
+        this.line = line;
+    }
+
     public String getValue() {
         return value;
     }

@@ -21,6 +21,8 @@ public enum Grammar {
     NOT_EQUAL("!="),
     CURLY_BRACKET_LEFT("{"),
     CURLY_BRACKET_RIGHT("}"),
+    SQUARE_BRACKET_LEFT("["),
+    SQUARE_BRACKET_RIGHT("]"),
     ROUND_BRACKET_LEFT("("),
     ROUND_BRACKET_RIGHT(")"),
     COMMA(","),
