@@ -3,22 +3,17 @@ package edu.parser.code.statement;
 import java.io.InputStream;
 import java.util.Scanner;
 
-import edu.interpret.exception.InterpretException;
-import edu.interpret.global.InterpretHelper;
-import edu.lexer.enums.Grammar;
+import edu.interpret.InterpretHelper;
 
-public class ReadStatement extends Statement {
+public class ReadStatement extends Statement{
     private static InputStream inputStream;
 
     private String identifier;
 
-    public ReadStatement(Grammar type) {
-        super(type);
-    }
-
     public static void setInputStream(InputStream in) {
         inputStream = in;
     }
+
 
     public String getIdentifier() {
         return identifier;
@@ -34,7 +29,7 @@ public class ReadStatement extends Statement {
             System.out.print("Enter new numeric value of \"" + identifier + "\": ");
             InterpretHelper.updateVariableValue(identifier, Integer.parseInt(scanner.nextLine()));
         } catch (NumberFormatException e) {
-            throw new InterpretException(e.getMessage());
+         //   throw new InterpretException(e.getMessage());
         }
     }
 }

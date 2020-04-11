@@ -1,15 +1,12 @@
 package edu.parser.code.statement;
 
-import edu.lexer.enums.Grammar;
+import java.util.List;
+
 import edu.parser.code.condition.Condition;
 
-public class WhileStatement extends Statement {
+public class WhileStatement extends  Statement {
     private Condition condition;
-    private Statement statement;
-
-    public WhileStatement(Grammar type) {
-        super(type);
-    }
+    private List<Statement> statements;
 
     public Condition getCondition() {
         return condition;
@@ -19,17 +16,15 @@ public class WhileStatement extends Statement {
         this.condition = condition;
     }
 
-    public Statement getStatement() {
-        return statement;
+    public List<Statement> getStatements() {
+        return statements;
     }
 
-    public void setStatement(Statement statement) {
-        this.statement = statement;
+    public void setStatements(List<Statement> statements) {
+        this.statements = statements;
     }
 
     @Override public void process() {
-        while(condition.process()){
-            statement.process();
-        }
+
     }
 }

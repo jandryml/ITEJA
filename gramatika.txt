@@ -1,4 +1,4 @@
-program = global_variables, main, {function};
+program = global_variables, main, {function}, "TERMINATE";
 
 global_variables = "GLOBALS",
                         [declaration, {"," declaration} ";"]
@@ -8,21 +8,23 @@ main = "MAIN", code_block
 
 function = "FUNCTION", identifier, "[", [declaration {",", declaration}] "]", code_block
 
-function_call = identifier, "[", [identifier | expression | string, {",", identifier | expression | string}], "]", ";"
+function_call = "EXECUTE", identifier, "[", [identifier | expression | string, {",", identifier | expression | string}], "]", ";"
 
 code_control = if | for | while ;
 
-if = "if", white_space, condition, {"&&" | "||", condition}, code_block
+if = "if", white_space, "[", conditions, "]", code_block
 
-for = "for", white_space, "[", declaration (assigment), ";" condition, ";", identifier, "++" | "--", "]", code_block
+for = "for", white_space, "[", declaration , ";", "[", conditions, "]", ";", identifier, "++" | "--", "]", code_block
 
-while = "while", white_space, "[", condition, {"&&" | "||", condition}, "]" , code_block ;
+while = "while", white_space, "[", conditions, "]" , code_block ;
 
 read = "READ", white_space, identifier, ";"
 
 write = "WRITE", white_space, (identifier | string | expression), ";"
 
-code_block = "{", { declaration | assigment | code_control | function_call | function | read | write} , "}" ;
+code_block = "{", { declaration | assigment | code_control | function_call | read | write} , "}" ;
+
+conditions = condition {"&&" | "||", condition}
 
 condition = identifier (number) | expression, "<" | ">" | "==" | "<=" | ">=", identifier (number) | expression ;
 

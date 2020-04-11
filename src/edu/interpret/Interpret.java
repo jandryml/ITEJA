@@ -1,10 +1,8 @@
 package edu.interpret;
 
-import edu.interpret.global.InterpretHelper;
 import edu.parser.code.Program;
 
 public class Interpret {
-
     private Program program;
 
     public Interpret(Program program) {
@@ -16,6 +14,4 @@ public class Interpret {
         InterpretHelper.setInputStream(System.in);
         program.process();
     }
-
-
 }

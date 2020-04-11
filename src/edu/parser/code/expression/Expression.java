@@ -3,8 +3,7 @@ package edu.parser.code.expression;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.interpret.exception.InterpretException;
-import edu.interpret.global.InterpretHelper;
+import edu.parser.code.Pair;
 
 public class Expression {
 
@@ -26,19 +25,6 @@ public class Expression {
         termList.add(new Pair<>(term, operator));
     }
 
-    public int process() {
-        return calculateExpressionValue();
-    }
 
-    private int calculateExpressionValue() {
-        if (!termList.isEmpty()) {
-            int result = 0;
-            for (Pair<Term, String> term : termList) {
-                result += InterpretHelper.evaluateNumberSign(term.getValue().process(), term.getOperator());
-            }
-            return result;
-        } else {
-            throw new InterpretException("No terms present!");
-        }
-    }
 }
+

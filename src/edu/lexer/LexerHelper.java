@@ -64,6 +64,8 @@ public class LexerHelper {
         words.add(Grammar.READ);
         words.add(Grammar.WRITE);
         words.add(Grammar.ASSIGMENT);
+        words.add(Grammar.EXECUTE);
+        words.add(Grammar.TERMINATE);
     }
 
     private void prepareOperators() {

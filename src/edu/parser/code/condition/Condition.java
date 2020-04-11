@@ -1,17 +1,26 @@
 package edu.parser.code.condition;
 
-import edu.lexer.enums.Grammar;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class Condition {
-    Grammar type;
+import edu.parser.code.Pair;
 
-    public Condition(Grammar type) {
-        this.type = type;
+public class Condition {
+    private List<Pair<LogicalExpression, String>> expressionList;
+
+    public Condition() {
+        expressionList = new ArrayList<>();
     }
 
-    public Grammar getType() {
-        return type;
+    public List<Pair<LogicalExpression, String>> getExpressionList() {
+        return expressionList;
     }
 
-    public abstract boolean process();
+    public void setExpressionList(List<Pair<LogicalExpression, String>> expressionList) {
+        this.expressionList = expressionList;
+    }
+
+    public void addLogicalExpression(LogicalExpression logicalExpression, String operator) {
+        expressionList.add(new Pair<>(logicalExpression, operator));
+    }
 }

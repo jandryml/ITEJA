@@ -1,4 +1,4 @@
-package edu.parser.code.expression;
+package edu.parser.code;
 
 public class Pair<F, S> {
     private F value;

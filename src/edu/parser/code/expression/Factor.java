@@ -1,6 +1,5 @@
 package edu.parser.code.expression;
 
-import edu.interpret.global.InterpretHelper;
 
 public class Factor {
 
@@ -38,19 +37,6 @@ public class Factor {
 
     public Types getType() {
         return type;
-    }
-
-    public int process() {
-        int result;
-
-        if (identifier != null) {
-            result = InterpretHelper.getValue(identifier);
-        } else if (expression != null) {
-            result = expression.process();
-        } else {
-            result = literal;
-        }
-        return result;
     }
 
     public enum Types {

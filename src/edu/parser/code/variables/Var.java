@@ -1,15 +1,18 @@
-package edu.parser.code;
+package edu.parser.code.variables;
 
 public class Var {
     private String identifier;
-    private int value;
-
+    private Value value;
     public Var() {
     }
 
-    public Var(String identifier, int value) {
+    public Var(String identifier, Value value) {
         this.identifier = identifier;
         this.value = value;
+    }
+
+    public Var(String identifier) {
+        this.identifier = identifier;
     }
 
     public String getIdentifier() {
@@ -20,11 +23,11 @@ public class Var {
         this.identifier = identifier;
     }
 
-    public int getValue() {
+    public Value getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(Value value) {
         this.value = value;
     }
 }

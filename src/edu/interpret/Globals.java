@@ -1,21 +1,21 @@
-package edu.interpret.global;
+package edu.interpret;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import edu.interpret.exception.InterpretException;
-import edu.parser.code.Var;
+import edu.parser.code.variables.Value;
+import edu.parser.code.variables.Var;
 
-public class Variables {
-
-    private static Map<String, Integer> variables;
+public class Globals {
+    private static Map<String, Value> variables;
 
     static {
         initialize();
     }
 
     public static void add(Var variable) {
-        if (!Variables.contains(variable.getIdentifier())) {
+        if (!Globals.contains(variable.getIdentifier())) {
             variables.put(variable.getIdentifier(), variable.getValue());
         } else {
             throw new InterpretException("Add variable: \"" + variable.getIdentifier() + "\" already exists!");
@@ -23,14 +23,14 @@ public class Variables {
     }
 
     public static void update(Var variable){
-        if (Variables.contains(variable.getIdentifier())) {
+        if (Globals.contains(variable.getIdentifier())) {
             variables.put(variable.getIdentifier(), variable.getValue());
         } else {
             throw new InterpretException("Add variable: \"" + variable.getIdentifier() + "\" already exists!");
         }
     }
 
-    public static int getValue(String identifier) {
+    public static Value getValue(String identifier) {
         if (contains(identifier)) {
             return variables.get(identifier);
         } else {

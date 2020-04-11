@@ -36,8 +36,10 @@ public enum Grammar {
     NUMBER("number"),
     MAIN("main"),
     FUNCTION("function"),
+    EXECUTE("execute"),
     END("end"),
-    GLOBALS("globals");
+    GLOBALS("globals"),
+    TERMINATE("terminate");
 
     private final String value;
 

@@ -1,21 +1,54 @@
 package edu.parser.code;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.interpret.Functions;
+import edu.interpret.Globals;
+import edu.parser.code.variables.Var;
+
 public class Program {
-    private Block block;
+    private List<Var> globalVariables;
+    private Function main;
+    private List<Function> functions;
 
-    public Program(Block block) {
-        this.block = block;
+    public Program() {
+        globalVariables = new ArrayList<>();
+        functions = new ArrayList<>();
     }
 
-    public Block getBlock() {
-        return block;
+    public List<Var> getGlobalVariables() {
+        return globalVariables;
     }
 
-    public void setBlock(Block block) {
-        this.block = block;
+    public void setGlobalVariables(List<Var> globalVariables) {
+        this.globalVariables = globalVariables;
     }
 
+    public Function getMain() {
+        return main;
+    }
+
+    public void setMain(Function main) {
+        this.main = main;
+    }
+
+    public List<Function> getFunctions() {
+        return functions;
+    }
+
+    public void setFunctions(List<Function> functions) {
+        this.functions = functions;
+    }
+
+    public void addFunction(Function function) {
+        functions.add(function);
+    }
     public void process(){
-        block.process();
+        globalVariables.forEach(Globals::add);
+        functions.forEach(Functions::add);
+
+        functions.forEach(Function::process);
     }
+
 }

@@ -1,4 +1,4 @@
-package edu.parser.code.exception;
+package edu.parser.exception;
 
 public class ParserException extends RuntimeException {
 

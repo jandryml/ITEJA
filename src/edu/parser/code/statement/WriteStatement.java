@@ -2,31 +2,26 @@ package edu.parser.code.statement;
 
 import java.io.PrintStream;
 
-import edu.interpret.global.InterpretHelper;
-import edu.lexer.enums.Grammar;
+import edu.interpret.InterpretHelper;
+import edu.parser.code.variables.Var;
 
 public class WriteStatement extends Statement {
     private static PrintStream printStream = System.out;
-
-    private String identifier;
-
-    public WriteStatement(Grammar type) {
-        super(type);
-    }
+    private Var var;
 
     public static void setPrintStream(PrintStream pStream) {
         printStream = pStream;
     }
 
-    public String getIdentifier() {
-        return identifier;
+    public Var getVar() {
+        return var;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setVar(Var var) {
+        this.var = var;
     }
-
     @Override public void process() {
-        printStream.println(InterpretHelper.getValue(identifier));
+        printStream.println(InterpretHelper.getValue(var.getIdentifier()));
     }
+
 }
