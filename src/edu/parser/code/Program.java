@@ -48,7 +48,7 @@ public class Program {
         globalVariables.forEach(Globals::add);
         functions.forEach(Functions::add);
 
-        functions.forEach(Function::process);
+        main.process(null);
     }
 
 }

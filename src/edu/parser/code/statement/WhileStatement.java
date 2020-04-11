@@ -2,9 +2,10 @@ package edu.parser.code.statement;
 
 import java.util.List;
 
+import edu.interpret.Variables;
 import edu.parser.code.condition.Condition;
 
-public class WhileStatement extends  Statement {
+public class WhileStatement extends Statement {
     private Condition condition;
     private List<Statement> statements;
 
@@ -24,7 +25,9 @@ public class WhileStatement extends  Statement {
         this.statements = statements;
     }
 
-    @Override public void process() {
-
+    @Override public void process(Variables variables) {
+        while (condition.process()) {
+            statements.forEach(statement -> statement.process(variables));
+        }
     }
 }

@@ -23,4 +23,9 @@ public class Condition {
     public void addLogicalExpression(LogicalExpression logicalExpression, String operator) {
         expressionList.add(new Pair<>(logicalExpression, operator));
     }
+
+    public boolean process(){
+        //TODO
+        return false;
+    }
 }

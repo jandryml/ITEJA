@@ -3,18 +3,20 @@ package edu.parser.code;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.interpret.Variables;
+import edu.interpret.exception.InterpretException;
 import edu.parser.code.statement.Statement;
 import edu.parser.code.variables.Var;
 
 public class Function {
     private String identifier;
     private List<Var> parameters;
-    private List<Var> variables;
+    private Variables runtimeVariables;
     private List<Statement> statements;
 
     public Function() {
         parameters = new ArrayList<>();
-        variables = new ArrayList<>();
+        runtimeVariables = new Variables();
         statements = new ArrayList<>();
     }
 
@@ -38,16 +40,16 @@ public class Function {
         parameters.add(var);
     }
 
-    public List<Var> getVariables() {
-        return variables;
+    public Variables getVariables() {
+        return runtimeVariables;
     }
 
-    public void setVariables(List<Var> variables) {
-        this.variables = variables;
+    public void setVariables(Variables variables) {
+        this.runtimeVariables = variables;
     }
 
     public void addVariable(Var var){
-        variables.add(var);
+        runtimeVariables.add(var);
     }
 
     public List<Statement> getStatements() {
@@ -62,8 +64,26 @@ public class Function {
         statements.add(statement);
     }
 
-    public void process(){
+    public void process(List<Var> parameters){
+        if(parameters != null && !parameters.isEmpty()){
+            processParams(parameters);
+        }
+        statements.forEach(statement -> statement.process(runtimeVariables));
+    }
 
+    private void processParams(List<Var> callParameters) {
+        if(parameters.size() == callParameters.size()){
+            for (int i = 0; i < parameters.size(); i++) {
+                if(parameters.get(i).getValue().getType().equals(callParameters.get(i).getValue().getType())){
+                    parameters.get(i).setValue(callParameters.get(i).getValue());
+                } else{
+                    throw new InterpretException("Invalid data types of params in call of function: " + identifier);
+                }
+            }
+            runtimeVariables.setVariables(parameters);
+        } else{
+            throw new InterpretException("Invalid count of params in call of function: " + identifier);
+        }
     }
 
 }

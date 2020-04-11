@@ -49,4 +49,28 @@ public class InterpretTest {
 
         interpret.process();
     }
+
+    @Test
+    public void interpretTest2() {
+        ArrayList<Token> tokens = Lexer.tokenize(
+                "GLOBALS\n"
+                        + "string  d = \"Hello world\";\n"
+                        + "END \n"
+                        + "MAIN { \n"
+                        + "EXECUTE writingTest[4, d]; \n"
+                        + "} \n"
+                        + "FUNCTION writingTest [number aa, string bb] {\n"
+                        + "WRITE \"test\"; \n"
+                        + "WRITE 6; \n"
+                        + "WRITE aa; \n"
+                        + "WRITE bb; \n"
+                        + "} "
+                        + "TERMINATE");
+
+        Parser parser = new Parser(new ParserHelper(tokens));
+
+        Interpret interpret = new Interpret(parser.buildAst());
+
+        interpret.process();
+    }
 }

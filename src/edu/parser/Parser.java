@@ -3,7 +3,6 @@ package edu.parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.lexer.Token;
 import edu.lexer.enums.Grammar;
 import edu.lexer.enums.TokenType;
 import edu.parser.code.Function;
@@ -291,7 +290,7 @@ public class Parser {
 
     private DeclarationStatement readDeclaration() {
         DeclarationStatement statement = new DeclarationStatement();
-        statement.setVariables(readVars());
+        statement.setVariablesList(readVars());
         return statement;
     }
 

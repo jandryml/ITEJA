@@ -1,12 +1,12 @@
 package edu.parser.code.statement;
 
 import edu.interpret.InterpretHelper;
+import edu.interpret.Variables;
 import edu.parser.code.variables.Value;
 
 public class AssigmentStatement extends Statement {
     private String identifier;
     private Value value;
-
 
     public String getIdentifier() {
         return identifier;
@@ -24,7 +24,7 @@ public class AssigmentStatement extends Statement {
         this.value = value;
     }
 
-    @Override public void process() {
-        InterpretHelper.updateVariableValue(identifier, value);
+    @Override public void process(Variables variables) {
+        InterpretHelper.updateVariableValue(identifier, value, variables);
     }
 }

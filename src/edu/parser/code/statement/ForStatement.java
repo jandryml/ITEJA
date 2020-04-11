@@ -2,7 +2,13 @@ package edu.parser.code.statement;
 
 import java.util.List;
 
+import edu.interpret.InterpretHelper;
+import edu.interpret.Variables;
+import edu.interpret.exception.InterpretException;
+import edu.lexer.enums.Grammar;
+import edu.lexer.enums.TokenType;
 import edu.parser.code.condition.Condition;
+import edu.parser.code.variables.Value;
 
 public class ForStatement extends Statement {
     private DeclarationStatement declare;
@@ -10,7 +16,6 @@ public class ForStatement extends Statement {
     private String identifier;
     private String processValue;
     private List<Statement> statements;
-
 
     public Condition getCondition() {
         return condition;
@@ -52,7 +57,29 @@ public class ForStatement extends Statement {
         this.processValue = processValue;
     }
 
-    @Override public void process() {
+    @Override public void process(Variables variables) {
+        declare.process(variables);
+        while (condition.process()) {
+            statements.forEach( statement -> statement.process(variables));
+            processValue(variables);
+        }
+    }
 
+    private void processValue(Variables variables) {
+        Value value = InterpretHelper.getValue(identifier, variables);
+
+        if (value.getType().equals(TokenType.NUMBER)) {
+            if (processValue.equals(Grammar.INCREMENT)) {
+                value.setExpressionValue(
+                        InterpretHelper.getExpressionOf(value.getExpressionValue().calculateExpressionValue(variables) + 1));
+            } else if (processValue.equals(Grammar.DECREMENT)) {
+                value.setExpressionValue(
+                        InterpretHelper.getExpressionOf(value.getExpressionValue().calculateExpressionValue(variables) - 1));
+            } else {
+                throw new InterpretException("Invalid operator\"" + processValue + "\" in FOR, must be \"++\", or \"--\"");
+            }
+        } else {
+            throw new InterpretException("Variable \"" + identifier + "\" must be NUMBER");
+        }
     }
 }

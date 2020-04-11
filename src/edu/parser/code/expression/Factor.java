@@ -1,5 +1,13 @@
 package edu.parser.code.expression;
 
+import java.util.List;
+
+import edu.interpret.InterpretHelper;
+import edu.interpret.Variables;
+import edu.interpret.exception.InterpretException;
+import edu.lexer.enums.TokenType;
+import edu.parser.code.variables.Value;
+import edu.parser.code.variables.Var;
 
 public class Factor {
 
@@ -43,5 +51,23 @@ public class Factor {
         IDENT,
         LITERAL,
         EXPRESSION
+    }
+
+    public int calculateFactorValue(Variables variables){
+        int result;
+
+        if (identifier != null) {
+            Value value = InterpretHelper.getValue(identifier, variables);
+            if(value.getType().equals(TokenType.NUMBER)){
+                result = value.getExpressionValue().calculateExpressionValue(variables);
+            } else{
+                throw new InterpretException("Variable \"" + identifier + "\" is not a NUMBER!");
+            }
+        } else if (expression != null) {
+            result = expression.calculateExpressionValue(variables);
+        } else {
+            result = literal;
+        }
+        return result;
     }
 }
