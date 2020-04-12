@@ -1,6 +1,8 @@
 package edu;
 
 
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +15,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/view/mainWindow.fxml"));
         primaryStage.setTitle("Application");
-        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 600, 440));
         primaryStage.show();
     }

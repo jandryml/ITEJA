@@ -59,7 +59,7 @@ public class ForStatement extends Statement {
 
     @Override public void process(Variables variables) {
         declare.process(variables);
-        while (condition.process()) {
+        while (condition.process(variables)) {
             statements.forEach( statement -> statement.process(variables));
             processValue(variables);
         }
@@ -69,10 +69,10 @@ public class ForStatement extends Statement {
         Value value = InterpretHelper.getValue(identifier, variables);
 
         if (value.getType().equals(TokenType.NUMBER)) {
-            if (processValue.equals(Grammar.INCREMENT)) {
+            if (processValue.equals(Grammar.INCREMENT.getValue())) {
                 value.setExpressionValue(
                         InterpretHelper.getExpressionOf(value.getExpressionValue().calculateExpressionValue(variables) + 1));
-            } else if (processValue.equals(Grammar.DECREMENT)) {
+            } else if (processValue.equals(Grammar.DECREMENT.getValue())) {
                 value.setExpressionValue(
                         InterpretHelper.getExpressionOf(value.getExpressionValue().calculateExpressionValue(variables) - 1));
             } else {

@@ -1,0 +1,12 @@
+GLOBALS
+END
+MAIN{
+    WRITE "Hello World!";
+    string x;
+    number y;
+    READ x;
+    READ y;
+    WRITE x;
+    WRITE y;
+}
+TERMINATE

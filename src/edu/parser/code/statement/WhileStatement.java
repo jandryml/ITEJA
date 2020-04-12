@@ -26,7 +26,7 @@ public class WhileStatement extends Statement {
     }
 
     @Override public void process(Variables variables) {
-        while (condition.process()) {
+        while (condition.process(variables)) {
             statements.forEach(statement -> statement.process(variables));
         }
     }

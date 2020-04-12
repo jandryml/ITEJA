@@ -59,7 +59,11 @@ public class Factor {
         if (identifier != null) {
             Value value = InterpretHelper.getValue(identifier, variables);
             if(value.getType().equals(TokenType.NUMBER)){
-                result = value.getExpressionValue().calculateExpressionValue(variables);
+                try {
+                    result = value.getExpressionValue().calculateExpressionValue(variables);
+                }catch (NullPointerException e){
+                    throw new InterpretException("Variable \"" + identifier + "\" is not initialized");
+                }
             } else{
                 throw new InterpretException("Variable \"" + identifier + "\" is not a NUMBER!");
             }

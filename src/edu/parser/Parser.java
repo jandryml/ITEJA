@@ -3,10 +3,10 @@ package edu.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.interpret.exception.InterpretException;
 import edu.lexer.enums.Grammar;
 import edu.lexer.enums.TokenType;
 import edu.parser.code.Function;
-import edu.parser.code.Pair;
 import edu.parser.code.Program;
 import edu.parser.code.condition.Condition;
 import edu.parser.code.condition.LogicalExpression;
@@ -26,6 +26,9 @@ public class Parser {
     }
 
     public Program buildAst() {
+        if(parserHelper.getCount() < 6){
+            throw new ParserException("Invalid program, check that mandatory keywords are present!");
+        }
         return readProgram();
     }
 
@@ -213,7 +216,6 @@ public class Parser {
         expectSymbol(TokenType.KEYWORD, Grammar.READ);
         ReadStatement statement = new ReadStatement();
 
-        parserHelper.pop();
         statement.setIdentifier(getIdentifier());
         expectSymbol(TokenType.SEPARATOR, Grammar.SEMICOLON);
 
@@ -250,7 +252,7 @@ public class Parser {
         statement.setIdentifier(getIdentifier());
         expectSymbol(TokenType.KEYWORD, Grammar.ASSIGMENT);
 
-        if (isPeekEqualOneOf(Grammar.STRING)) {
+        if (parserHelper.peekType().equals(TokenType.STRING)) {
             Value value = new Value(TokenType.STRING);
             value.setStringValue(parserHelper.pop().getValue());
             statement.setValue(value);
@@ -290,21 +292,21 @@ public class Parser {
 
     private DeclarationStatement readDeclaration() {
         DeclarationStatement statement = new DeclarationStatement();
-        statement.setVariablesList(readVars());
+        statement.setVariablesList(readVars(false));
         return statement;
     }
 
     private List<Var> readGlobals() {
         expectSymbol(TokenType.KEYWORD, Grammar.GLOBALS);
-        List<Var> globals = readVars();
+        List<Var> globals = readVars(true);
         expectSymbol(TokenType.KEYWORD, Grammar.END);
         return globals;
     }
 
-    private List<Var> readVars() {
+    private List<Var> readVars(boolean isGlobals) {
         List<Var> varList = new ArrayList<>();
 
-        boolean run = true;
+        boolean run = !isGlobals || !isPeekEqualOneOf(Grammar.END);
         while (run) {
             Var var;
             switch (parserHelper.pop().getValue()) {
@@ -392,7 +394,9 @@ public class Parser {
     private Factor readFactor() {
         Factor factor = new Factor();
 
-        if (parserHelper.peekType().equals(TokenType.IDENTIFIER)) {
+        if (parserHelper.peekType().equals(TokenType.STRING)) {
+            throw new InterpretException("String cannot be assigned to NUMBER variable!");
+        } else if (parserHelper.peekType().equals(TokenType.IDENTIFIER)) {
             factor.setIdentifier(getIdentifier());
         } else if (parserHelper.peekType().equals(TokenType.NUMBER)) {
             factor.setLiteral(getNumber());
@@ -418,7 +422,7 @@ public class Parser {
         if (parserHelper.peekType().equals(TokenType.STRING)) {
             return parserHelper.pop().getValue();
         } else {
-            throw new ParserException("String was expected!");
+            throw new ParserException("Unexpected value, STRING value was expected!");
         }
     }
 

@@ -7,6 +7,7 @@ public class Interpret {
 
     public Interpret(Program program) {
         this.program = program;
+
     }
 
     public void process() {

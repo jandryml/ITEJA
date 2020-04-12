@@ -3,6 +3,7 @@ package edu.parser.code.statement;
 import edu.interpret.InterpretHelper;
 import edu.interpret.Variables;
 import edu.parser.code.variables.Value;
+import edu.parser.code.variables.Var;
 
 public class AssigmentStatement extends Statement {
     private String identifier;
@@ -25,6 +26,7 @@ public class AssigmentStatement extends Statement {
     }
 
     @Override public void process(Variables variables) {
+        Value value = InterpretHelper.transferVariable(new Var(identifier, this.value), variables).getValue();
         InterpretHelper.updateVariableValue(identifier, value, variables);
     }
 }

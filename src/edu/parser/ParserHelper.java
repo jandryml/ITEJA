@@ -44,11 +44,15 @@ public class ParserHelper {
 
     public boolean isSame(TokenType tokenType, Grammar word){
         Token token = tokenList.get(counter);
-        return token.getType().equals(tokenType) && token.getValue().equals(word.getValue());
+        return token.getType().equals(tokenType) && token.getValue().toLowerCase().equals(word.getValue());
     }
 
     public boolean isType(TokenType type){
         return tokenList.get(counter).getType().equals(type);
+    }
+
+    public int getCount(){
+        return tokenList.size();
     }
 
     public boolean hasNext() {

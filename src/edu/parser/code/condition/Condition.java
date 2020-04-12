@@ -3,6 +3,9 @@ package edu.parser.code.condition;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.interpret.Variables;
+import edu.interpret.exception.InterpretException;
+import edu.lexer.enums.Grammar;
 import edu.parser.code.Pair;
 
 public class Condition {
@@ -24,8 +27,19 @@ public class Condition {
         expressionList.add(new Pair<>(logicalExpression, operator));
     }
 
-    public boolean process(){
-        //TODO
-        return false;
+    public boolean process(Variables variables) {
+        boolean value = expressionList.get(0).getValue().process(variables);
+
+        for (int i = 1; i < expressionList.size(); i++) {
+            if (expressionList.get(i).getOperator().equals(Grammar.AND.getValue())) {
+                value = value & expressionList.get(i).getValue().process(variables);
+            } else if (expressionList.get(i).getOperator().equals(Grammar.OR.getValue())) {
+                value = value | expressionList.get(i).getValue().process(variables);
+            } else {
+                throw new InterpretException("Invalid operator: \"" + expressionList.get(i).getOperator() + "\" in condition!");
+            }
+        }
+
+        return value;
     }
 }

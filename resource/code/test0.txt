@@ -1,0 +1,6 @@
+GLOBALS
+END
+MAIN{
+    WRITE "Hello World!";
+}
+TERMINATE

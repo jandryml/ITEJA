@@ -2,7 +2,6 @@ package edu.interpret;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.List;
 
 import edu.interpret.exception.InterpretException;
 import edu.lexer.enums.TokenType;
@@ -34,7 +33,17 @@ public class InterpretHelper {
     }
 
     public static void updateVariableValue(String identifier, Value value, Variables variables) {
+        Value actualValue =getValue(identifier, variables);
+        if(!actualValue.getType().equals(value.getType())){
+            throw new InterpretException("Invalid types assigment");
+        }
+
         if (variables.contains(identifier)) {
+            if (value.getType().equals(TokenType.NUMBER)) {
+                Expression simplifiedExpression = getExpressionOf(value.getExpressionValue().calculateExpressionValue(variables));
+                value = new Value(TokenType.NUMBER);
+                value.setExpressionValue(simplifiedExpression);
+            }
             Var var = new Var(identifier, value);
             variables.update(var);
         } else {

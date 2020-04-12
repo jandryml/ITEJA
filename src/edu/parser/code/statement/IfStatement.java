@@ -26,7 +26,7 @@ public class IfStatement extends Statement {
     }
 
     @Override public void process(Variables variables) {
-        if (condition.process()) {
+        if (condition.process(variables)) {
             statements.forEach(statement -> statement.process(variables));
         }
     }

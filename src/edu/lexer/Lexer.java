@@ -18,7 +18,7 @@ public class Lexer {
         int checkPoint = 0;
         int lineCount = 0;
         String rawWord;
-        input = input.toLowerCase();
+       // input = input.toLowerCase();
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == '\n') {
                 lineCount++;

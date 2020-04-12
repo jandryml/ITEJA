@@ -16,7 +16,6 @@ public class Function {
 
     public Function() {
         parameters = new ArrayList<>();
-        runtimeVariables = new Variables();
         statements = new ArrayList<>();
     }
 
@@ -65,6 +64,7 @@ public class Function {
     }
 
     public void process(List<Var> parameters){
+        runtimeVariables = new Variables();
         if(parameters != null && !parameters.isEmpty()){
             processParams(parameters);
         }
