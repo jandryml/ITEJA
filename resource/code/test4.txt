@@ -1,0 +1,12 @@
+GLOBALS
+END
+MAIN{
+WRITE "Hello World";
+
+    FOR [ number i = 0; [ i <= 10 ]; i++ ] {
+        IF [ i % 2 == 2] {
+            WRITE i;
+        }
+    }
+}
+TERMINATE

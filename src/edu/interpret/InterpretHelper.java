@@ -88,6 +88,10 @@ public class InterpretHelper {
                         Value value = InterpretHelper.getValue(identifier, variables);
                         if (value.getType().equals(TokenType.STRING)) {
                             return new Var("param", value);
+                        } else if (value.getType().equals(TokenType.NUMBER)){
+                            Value updatedValue = new Value(TokenType.NUMBER);
+                            updatedValue.setExpressionValue(getExpressionOf(value.getExpressionValue().calculateExpressionValue(variables)));
+                            return new Var(var.getIdentifier(), updatedValue);
                         }
                     }
                 }

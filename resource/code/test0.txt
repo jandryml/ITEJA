@@ -1,6 +1,9 @@
 GLOBALS
 END
 MAIN{
-    WRITE "Hello World!";
+    WRITE "Hello World";
+    IF [ 2 == 2]{
+        WRITE "Ahoj";
+    }
 }
 TERMINATE

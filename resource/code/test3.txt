@@ -2,25 +2,25 @@ GLOBALS
     number targetValue = 13;
 END
 MAIN{
-    WRITE "Welcome to number guessing game!";
-    WRITE "Try to guess!";
+    WRITE "Welcome to number guessing game";
+    WRITE "Try to guess";
 
     number guessed = 0;
 
-    while [guessed != targetValue]{
+    WHILE [guessed != targetValue]{
     READ guessed;
     EXECUTE evaluate [guessed];
     }
 
-    WRITE "Victory!";
+    WRITE "Victory";
 }
 FUNCTION evaluate[number guessedValue]{
-    if [ guessedValue < targetValue] {
-     WRITE "Try greater value!";
+    IF [ guessedValue < targetValue] {
+        WRITE "Try greater value";
     }
 
-    if [ guessedValue > targetValue] {
-         WRITE "Try lower value!";
+    IF [ guessedValue > targetValue] {
+        WRITE "Try lower value";
     }
 }
 TERMINATE

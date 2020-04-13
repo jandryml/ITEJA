@@ -1,7 +1,7 @@
 GLOBALS
 END
 MAIN{
-    WRITE "Hello World!";
+    WRITE "Hello World";
     string x;
     number y;
     READ x;

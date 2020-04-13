@@ -1,7 +1,7 @@
 GLOBALS
 END
 MAIN {
-	number ap = 10,
+	number ap = 10;
 	number a = 5 * ( 2 + 2 );
 	WRITE ap;
 	WRITE a;

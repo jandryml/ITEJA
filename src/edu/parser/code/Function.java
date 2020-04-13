@@ -3,6 +3,8 @@ package edu.parser.code;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.interpret.Interpret;
+import edu.interpret.InterpretHelper;
 import edu.interpret.Variables;
 import edu.interpret.exception.InterpretException;
 import edu.parser.code.statement.Statement;
@@ -63,19 +65,19 @@ public class Function {
         statements.add(statement);
     }
 
-    public void process(List<Var> parameters){
+    public void process(List<Var> parameters, Variables parentVariables){
         runtimeVariables = new Variables();
         if(parameters != null && !parameters.isEmpty()){
-            processParams(parameters);
+            processParams(parameters, parentVariables);
         }
         statements.forEach(statement -> statement.process(runtimeVariables));
     }
 
-    private void processParams(List<Var> callParameters) {
+    private void processParams(List<Var> callParameters, Variables parentVariables) {
         if(parameters.size() == callParameters.size()){
             for (int i = 0; i < parameters.size(); i++) {
                 if(parameters.get(i).getValue().getType().equals(callParameters.get(i).getValue().getType())){
-                    parameters.get(i).setValue(callParameters.get(i).getValue());
+                    parameters.get(i).setValue(InterpretHelper.transferVariable(callParameters.get(i),parentVariables).getValue());
                 } else{
                     throw new InterpretException("Invalid data types of params in call of function: " + identifier);
                 }

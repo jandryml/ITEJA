@@ -42,16 +42,15 @@ public class ExecuteStatement extends Statement {
     }
 
     @Override public void process(Variables variables) {
-        resolveParams(variables);
-        Functions.getValue(identifier).process(params);
+        Functions.getValue(identifier).process(resolveParams(variables), variables);
     }
 
-    private void resolveParams(Variables variables) {
+    private List<Var> resolveParams(Variables variables) {
         List<Var> updatedParams = new ArrayList<>();
         for (Var var : params) {
             var = InterpretHelper.transferVariable(var,variables);
             updatedParams.add(var);
         }
-        params = updatedParams;
+        return updatedParams;
     }
 }

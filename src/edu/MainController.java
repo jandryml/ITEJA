@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import edu.interpret.Functions;
+import edu.interpret.Globals;
 import edu.interpret.Interpret;
 import edu.lexer.Lexer;
 import edu.lexer.Token;
@@ -23,6 +25,8 @@ public class MainController implements Initializable {
     @FXML
     public void runProgram() {
         consoleTextArea.clear();
+        Globals.initialize();
+        Functions.initialize();
 //       try {
 
             ArrayList<Token> tokens = Lexer.tokenize(codeTextArea.getText());

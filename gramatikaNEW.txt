@@ -1,0 +1,47 @@
+program = global_variables main {function} "TERMINATE" $;
+
+global_variables = "GLOBALS" [declaration  {"," declaration} ";"] "END" ;
+
+main = "MAIN" code_block ;
+
+function = "FUNCTION"  identifier  "["  [declaration {","  declaration}] "]"  code_block;
+
+function_call = "EXECUTE"  identifier  "["  [ (identifier | expression | string)  {","  (identifier | expression | string)}]  "]" ";";
+
+code_control = (if | for | while) ;
+
+if = "IF"  "[" conditions "]" code_block ;
+
+for = "FOR" "[" declaration ";" "[" conditions "]" ";" identifier ("++" | "--")  "]" code_block ;
+
+while = "WHILE"  "["  conditions  "]"   code_block ;
+
+code_block = "{"  {( read | write | (declaration ";")| (assigment ";") | code_control | function_call ) } "}" ;
+
+read = "READ"  identifier ";";
+
+write = "WRITE"  (string | identifier | expression) ";";
+
+conditions = condition {("&&" | "||")  condition} ;
+
+condition = (identifier | expression)  ("<" | ">" | "==" | "!=" | "<=" | ">=")  (identifier | expression) ;
+
+expression =  [("+" | "-")]  term  { ("+" | "-")  term};
+
+term = factor {("*" | "/" | "%") factor} ;
+
+factor = (number | identifier | "(" expression ")") ;
+
+assigment = identifier "="  (string | expression | identifier) ;
+
+declaration = ("string" | "number") ( assigment | identifier ) ;
+
+identifier = word { (word | number) };
+
+string = ('"' {(word | number  | white_space)} '"' | "'"  { (word | number | white_space)}  "'");
+
+word = /[a-zA-Z]+/;
+
+number = /[0-9]+/ ;
+
+white_space =  /[\t\r\n\f]+ / ;
