@@ -108,7 +108,4 @@ public class InterpretHelper {
         WriteStatement.setPrintStream(printStream);
     }
 
-    public static void setInputStream(InputStream in) {
-        ReadStatement.setInputStream(in);
-    }
 }

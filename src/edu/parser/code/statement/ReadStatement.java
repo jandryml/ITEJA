@@ -1,8 +1,6 @@
 package edu.parser.code.statement;
 
-import java.io.InputStream;
-import java.util.Scanner;
-
+import edu.MainController;
 import edu.interpret.InterpretHelper;
 import edu.interpret.Variables;
 import edu.interpret.exception.InterpretException;
@@ -10,13 +8,8 @@ import edu.lexer.enums.TokenType;
 import edu.parser.code.variables.Value;
 
 public class ReadStatement extends Statement {
-    private static InputStream inputStream = System.in;
 
     private String identifier;
-
-    public static void setInputStream(InputStream in) {
-        inputStream = in;
-    }
 
     public String getIdentifier() {
         return identifier;
@@ -31,17 +24,15 @@ public class ReadStatement extends Statement {
 
         String dataTypeMessage = type.equals(TokenType.STRING) ? "string" : "number";
 
-        System.out.print("Enter " + dataTypeMessage + " value for \"" + identifier + "\": ");
+        String message = "Enter " + dataTypeMessage + " value for \"" + identifier + "\": ";
 
-        Scanner scanner = new Scanner(inputStream);
-        //TODO
         String input = "";
         try {
             Value value = new Value(type);
-            input = scanner.nextLine();
+            input = MainController.readValueFromGUI(message);
             if (type.equals(TokenType.NUMBER)) {
                 int result;
-                if(input.isEmpty()){
+                if (input.isEmpty()) {
                     result = 0;
                 } else {
                     result = Integer.parseInt(input);

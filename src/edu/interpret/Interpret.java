@@ -12,7 +12,6 @@ public class Interpret {
 
     public void process() {
         InterpretHelper.setPrintStream(System.out);
-        InterpretHelper.setInputStream(System.in);
         program.process();
     }
 }

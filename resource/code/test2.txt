@@ -4,7 +4,7 @@ END
 MAIN{
 WRITE text ;
 
-    FOR [ number i = 0; [ i <= 20]; i++ ] {
+    FOR [ number i = 0; [ i <= 10]; i++ ] {
             WRITE i;
     }
 }
