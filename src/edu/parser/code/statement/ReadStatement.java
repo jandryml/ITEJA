@@ -35,17 +35,25 @@ public class ReadStatement extends Statement {
 
         Scanner scanner = new Scanner(inputStream);
         //TODO
+        String input = "";
         try {
             Value value = new Value(type);
+            input = scanner.nextLine();
             if (type.equals(TokenType.NUMBER)) {
-                value.setExpressionValue(InterpretHelper.getExpressionOf(Integer.parseInt(scanner.nextLine())));
+                int result;
+                if(input.isEmpty()){
+                    result = 0;
+                } else {
+                    result = Integer.parseInt(input);
+                }
+                value.setExpressionValue(InterpretHelper.getExpressionOf(result));
             } else {
-                value.setStringValue(scanner.nextLine());
+                value.setStringValue(input);
             }
 
             InterpretHelper.updateVariableValue(identifier, value, variables);
         } catch (NumberFormatException e) {
-            throw new InterpretException(e.getMessage());
+            throw new InterpretException("Invalid input: \"" + input + "\", expect type: " + type);
         }
     }
 }

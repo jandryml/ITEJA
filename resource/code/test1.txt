@@ -1,9 +1,8 @@
 GLOBALS
 END
-MAIN {
-	number ap = 10;
-	number a = 5 * ( 2 + 2 );
-	WRITE ap;
-	WRITE a;
+MAIN{
+    WRITE "Hello World";
+    number x = +3 *(-2 + -2)+1 * 2 + 1;
+    WRITE x;
 }
 TERMINATE

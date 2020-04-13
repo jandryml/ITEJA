@@ -1,12 +1,11 @@
 GLOBALS
+	string text = "Iteration";
 END
 MAIN{
-    WRITE "Hello World";
-    string x;
-    number y;
-    READ x;
-    READ y;
-    WRITE x;
-    WRITE y;
+WRITE text ;
+
+    FOR [ number i = 0; [ i <= 20]; i++ ] {
+            WRITE i;
+    }
 }
 TERMINATE

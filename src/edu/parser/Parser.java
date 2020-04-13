@@ -373,10 +373,24 @@ public class Parser {
 
         while (isPeekEqualOneOf(Grammar.PLUS, Grammar.MINUS)) {
             String operator = parserHelper.pop().getValue();
+            while (isPeekEqualOneOf(Grammar.PLUS, Grammar.MINUS)){
+                operator = resolveMultipleOperators(operator);
+            }
             expression.addTerm(readTerm(), operator);
         }
 
         return expression;
+    }
+
+    private String resolveMultipleOperators(String operator) {
+        String nextOperator = parserHelper.pop().getValue();
+
+        if(operator.equals(nextOperator)){
+            return "+";
+
+        } else{
+            return "-";
+        }
     }
 
     private Term readTerm() {
@@ -384,7 +398,7 @@ public class Parser {
 
         term.addFactor(readFactor(), null);
 
-        while (isPeekEqualOneOf(Grammar.DIVISION, Grammar.MULTIPLY)) {
+        while (isPeekEqualOneOf(Grammar.DIVISION, Grammar.MULTIPLY, Grammar.MODULO)) {
             String operator = parserHelper.pop().getValue();
             term.addFactor(readFactor(), operator);
         }

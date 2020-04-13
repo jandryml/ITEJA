@@ -18,7 +18,7 @@ public class Lexer {
         int checkPoint = 0;
         int lineCount = 0;
         String rawWord;
-       // input = input.toLowerCase();
+        // input = input.toLowerCase();
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == '\n') {
                 lineCount++;
@@ -62,9 +62,20 @@ public class Lexer {
             }
 
             if (isThisWhiteSpace(charToString(input, i + 1)) ||
-                    helper.isThisSeparator(charToString(input, i + 1))) {
+                    helper.isThisSeparator(charToString(input, i + 1))
+                    || helper.isThisOperator(charToString(input, i + 1))) {
                 if (Pattern.matches("[a-zA-Z]+", rawWord)) {
-                    separatedCode.add(new Token(rawWord, TokenType.IDENTIFIER, lineCount));
+                    if (input.length() > i + 2) {
+                        String postfix = input.substring(i + 1, i + 3);
+                        if (postfix.equals(Grammar.INCREMENT.getValue()) || postfix.equals(Grammar.DECREMENT.getValue())) {
+                            separatedCode.add(new Token(rawWord, TokenType.IDENTIFIER, lineCount));
+                            separatedCode.add(new Token(postfix, TokenType.OPERATOR, lineCount));
+                            checkPoint = i++ + 3;
+                            continue;
+                        } else {
+                            separatedCode.add(new Token(rawWord, TokenType.IDENTIFIER, lineCount));
+                        }
+                    }
                 } else if (Pattern.matches("[0-9]+", rawWord)) {
                     separatedCode.add(new Token(rawWord, TokenType.NUMBER, lineCount));
                 } else {

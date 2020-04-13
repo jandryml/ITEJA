@@ -6,11 +6,6 @@ import java.util.List;
 import edu.interpret.Functions;
 import edu.interpret.InterpretHelper;
 import edu.interpret.Variables;
-import edu.interpret.exception.InterpretException;
-import edu.lexer.enums.TokenType;
-import edu.parser.code.expression.Expression;
-import edu.parser.code.expression.Factor;
-import edu.parser.code.variables.Value;
 import edu.parser.code.variables.Var;
 
 public class ExecuteStatement extends Statement {

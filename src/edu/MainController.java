@@ -27,7 +27,7 @@ public class MainController implements Initializable {
         consoleTextArea.clear();
         Globals.initialize();
         Functions.initialize();
-//       try {
+       try {
 
             ArrayList<Token> tokens = Lexer.tokenize(codeTextArea.getText());
 
@@ -36,9 +36,10 @@ public class MainController implements Initializable {
             Interpret interpret = new Interpret(parser.buildAst());
 
             interpret.process();
-//        } catch (RuntimeException e){
-//            consoleTextArea.appendText(e.getMessage());
-//        }
+        } catch (RuntimeException e){
+           System.out.println(e.getMessage());
+            consoleTextArea.appendText(e.getMessage());
+        }
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {

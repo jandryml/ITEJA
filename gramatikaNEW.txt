@@ -24,9 +24,9 @@ write = "WRITE"  (string | identifier | expression) ";";
 
 conditions = condition {("&&" | "||")  condition} ;
 
-condition = (identifier | expression)  ("<" | ">" | "==" | "!=" | "<=" | ">=")  (identifier | expression) ;
+condition = (identifier | expression)  ("==" | "!=" | "<=" | ">=" | "<" | ">")  (identifier | expression) ;
 
-expression =  [("+" | "-")]  term  { ("+" | "-")  term};
+expression =  [{("+" | "-")}]  term  {{("+" | "-")}  term};
 
 term = factor {("*" | "/" | "%") factor} ;
 

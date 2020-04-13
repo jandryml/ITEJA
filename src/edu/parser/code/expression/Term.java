@@ -39,6 +39,9 @@ public class Term {
                 case "/":
                     result = result / actualFactor.getValue().calculateFactorValue(variables);
                     break;
+                case "%":
+                    result = result % actualFactor.getValue().calculateFactorValue(variables);
+                    break;
                 default:
                     throw new InterpretException("Unknown operator: \"" + actualFactor.getOperator());
 
